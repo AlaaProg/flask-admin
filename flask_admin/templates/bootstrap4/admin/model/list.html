@@ -12,9 +12,14 @@
 
 {% block body %}
     {% block model_menu_bar %}
-    <ul class="nav nav-tabs actions-nav">
+    <ul class="nav nav-tabs  actions-nav">
         <li class="nav-item">
-            <a class="nav-link active" href="javascript:void(0)">{{ _gettext('List') }}{% if count %} ({{ count }}){% endif %}</a>
+            <a class="nav-link active" href="javascript:void(0)">
+                {{ _gettext('List') }}
+                {% if count %} 
+                    <span class="badge badge-info">{{ count }}</span>
+                {% endif %}
+            </a>
         </li>
 
         {% if admin_view.can_create %}
@@ -22,7 +27,9 @@
           {%- if admin_view.create_modal -%}
             {{ lib.add_modal_button(url=get_url('.create_view', url=return_url, modal=True), title=_gettext('Create New Record'), content=_gettext('Create')) }}
           {% else %}
-            <a class="nav-link" href="{{ get_url('.create_view', url=return_url) }}" title="{{ _gettext('Create New Record') }}">{{ _gettext('Create') }}</a>
+            <a class="nav-link" href="{{ get_url('.create_view', url=return_url) }}" title="{{ _gettext('Create New Record') }}">
+                {{ _gettext('Create') }}
+            </a>
           {%- endif -%}
         </li>
         {% endif %}
@@ -34,25 +41,25 @@
         {% block model_menu_bar_before_filters %}{% endblock %}
 
         {% if filters %}
-        <li class="dropdown">
+        <li class="nav-item dropdown">
             {{ model_layout.filter_options() }}
         </li>
         {% endif %}
 
         {% if can_set_page_size %}
-        <li class="dropdown">
-            {{ model_layout.page_size_form(page_size_url) }}
+        <li class="nav-item dropdown">
+            {{ model_layout.page_size_form(page_size_url,btn_class='nav-link dropdown-toggle') }} 
         </li>
         {% endif %}
 
         {% if actions %}
-        <li class="dropdown">
+        <li class="nav-item dropdown">
             {{ actionlib.dropdown(actions) }}
         </li>
         {% endif %}
 
         {% if search_supported %}
-        <li>
+        <li class="nav-item">
             {{ model_layout.search_form() }}
         </li>
         {% endif %}
@@ -67,18 +74,18 @@
 
     {% block model_list_table %}
     <div class="table-responsive">
-    <table class="table table-striped table-bordered table-hover model-list">
+    <table class="table table-bordered table-hover model-list">
         <thead>
             <tr>
                 {% block list_header scoped %}
                     {% if actions %}
-                    <th class="list-checkbox-column">
-                        <input type="checkbox" name="rowtoggle" class="action-rowtoggle" title="{{ _gettext('Select all records') }}" />
-                    </th>
+                        <th class="list-checkbox-column">
+                            <input type="checkbox" name="rowtoggle" class="action-rowtoggle" title="{{ _gettext('Select all records') }}" />
+                        </th>
                     {% endif %}
                     {% block list_row_actions_header %}
                         {% if admin_view.column_display_actions %}
-                        <th>&nbsp;</th>
+                        <th>actions</th>
                         {% endif %}
                     {% endblock %}
                     {% for c, name in list_columns %}

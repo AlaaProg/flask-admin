@@ -109,7 +109,8 @@
 {% endmacro %}
 
 {% macro add_modal_button(url='', title='', content='', modal_window_id='fa_modal_window', btn_class='icon') %}
-  <a class="{{ btn_class }}" data-target="#{{ modal_window_id }}" title="{{ title }}" href="{{ url }}" data-toggle="modal">
+  <a class="{{ btn_class }}" 
+      data-target="#{{ modal_window_id }}" title="{{ title }}" href="{{ url }}" data-toggle="modal">
     {{ content|safe }}
   </a>
 {% endmacro %}
@@ -189,7 +190,7 @@
       <div class="col-md-offset-2 col-md-10 submit-row">
         <input type="submit" class="btn btn-primary" value="{{ _gettext('Save') }}" />
         {% if extra %}
-        {{ extra }}
+          {{ extra }} 
         {% endif %}
         {% if cancel_url %}
           <a href="{{ cancel_url }}" class="btn btn-danger" role="button" {% if is_modal %}data-dismiss="modal"{% endif %}>{{ _gettext('Cancel') }}</a>
@@ -244,9 +245,11 @@
 
 {% macro extra() %}
   {% if admin_view.can_create %}
-  <input name="_add_another" type="submit" class="btn btn-secondary" value="{{ _gettext('Save and Add Another') }}" />
+      <input name="_add_another" type="submit" class="btn btn-outline-primary" style="border-radius: 0" 
+        value="{{ _gettext('Save and Add Another') }}" />
   {% endif %}
   {% if admin_view.can_edit %}
-  <input name="_continue_editing" type="submit" class="btn btn-secondary" value="{{ _gettext('Save and Continue Editing') }}" />
+  <input name="_continue_editing" type="submit" class="btn btn-outline-primary " style="border-radius: 0" 
+          value="{{ _gettext('Save and Continue Editing') }}" />
   {% endif %}
 {% endmacro %}

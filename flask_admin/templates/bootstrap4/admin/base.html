@@ -27,42 +27,47 @@
   </head>
 <body>
   {% block page_body %}
-      <header class="navbar navbar-expand-lg navbar-dark bg-dark mb-3" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#admin-navbar-collapse">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          {% block brand %}
-          <a class="navbar-brand" href="{{ admin_view.admin.url }}">{{ admin_view.admin.name }}</a>
-          {% endblock %}
-        </div>
-        <!-- navbar content -->
-        <div class="collapse navbar-collapse" id="admin-navbar-collapse">
-          {% block main_menu %}
-          <ul class="navbar-nav">
-            {{ layout.menu() }}
-          </ul>
-          {% endblock %}
+        <header class="navbar navbar-expand-lg navbar-dark bg-secondary mb-3" role="navigation">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="container">
 
-          {% block menu_links %}
-          <ul class="navbar-nav ml-auto">
-            {{ layout.menu_links() }}
-          </ul>
-          {% endblock %}
-          {% block access_control %}
-          {% endblock %}
-        </div>
-      </header>
-      <div class="container-fluid">
-          {% block messages %}
-          {{ layout.messages() }}
-          {% endblock %}
+            <div class="navbar-header">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#admin-navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                {% block brand %}
+                  <a class="navbar-brand" href="{{ admin_view.admin.url }}">{{ admin_view.admin.name }}</a>
+                {% endblock %}
+            </div>
+            <!-- navbar content -->
+            <div class="collapse navbar-collapse" id="admin-navbar-collapse">
 
-          {# store the jinja2 context for form_rules rendering logic #}
-          {% set render_ctx = h.resolve_ctx() %}
+              {% block main_menu %}
+              <ul class="navbar-nav">
+                {{ layout.menu() }}
+              </ul>
+              {% endblock %}
 
-          {% block body %}{% endblock %}
+              {% block menu_links %}
+              <ul class="navbar-nav ml-auto">
+                {{ layout.menu_links() }}
+              </ul>
+              {% endblock %}
+              {% block access_control %}
+              {% endblock %}
+            </div>
+          </div>
+        </header>
+      <div class="container">
+        {% block messages %}
+        {{ layout.messages() }}
+        {% endblock %}
+
+        {# store the jinja2 context for form_rules rendering logic #}
+        {% set render_ctx = h.resolve_ctx() %}
+        <h1>{{ admin_view.name }}</h1>
+        <hr>
+        {% block body %}{% endblock %}
       </div>
   {% endblock %}
 
